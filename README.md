@@ -6,7 +6,7 @@ It displays the imported data in a table and provides validation for dates and o
 
 ## ⚙️ Features
 
-* Import employees from `.xlsx` or `.xls` files
+* Import employees from `.csv` file
 * Automatically parse and validate data (including date formats)
 * Display imported data in a web interface
 * Prevent duplicate imports after page reload
