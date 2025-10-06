@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Entity.Employee>
+@{
+    var importResult = ViewBag.Result as Entity.ImportResult;
+}
+
+<h2>Employee Import</h2>
+
+<form asp-action="Import" method="post" enctype="multipart/form-data">
+    <div>
+        <input type="file" name="file" />
+        <button type="submit" class="btn btn-primary">Import</button>
+    </div>
+</form>
+
+@if (importResult != null)
+{
+    <div class="alert alert-info mt-3">
+        Processed: @importResult.Processed,
+        Inserted: @importResult.Inserted,
+        Failed: @importResult.Failed
+    </div>
+}
+
+<table id="employeesTable" class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Payroll Number</th>
+            <th>Forenames</th>
+            <th>Surname</th>
+            <th>Date of Birth</th>
+            <th>Telephone</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Start Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.PayrollNumber</td>
+                <td>@e.Forenames</td>
+                <td>@e.Surname</td>
+                <td>@e.DateOfBirth?.ToShortDateString()</td>
+                <td>@e.Telephone</td>
+                <td>@e.Mobile</td>
+                <td>@e.Address</td>
+                <td>@e.EmailHome</td>
+                <td>@e.Start_Date?.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#employeesTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true
+            });
+        });
+    </script>
+}
